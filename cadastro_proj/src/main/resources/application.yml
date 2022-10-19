@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      dll-auto: validate
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cadastro_proj
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jackson:
+    default-property-inclusion: non_null
+
+
+
+
