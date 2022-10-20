@@ -1,5 +1,6 @@
 package br.com.domingosligiane.cadastro_proj.controller.request
 
+import br.com.domingosligiane.cadastro_proj.validation.CpfAvailable
 import br.com.domingosligiane.cadastro_proj.validation.EmailAvailable
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
@@ -11,11 +12,13 @@ data class PostCustomerRequest (
     var name: String,
 
     @field:Email(message = "E-mail deve ser válido.")
+    @field:NotEmpty(message = "E-mail deve ser informado.")
     @EmailAvailable
     var email: String,
 
-    @field:NotNull(message = "CPF deve ser informado")
-    var cpf: Int
+    @field:NotEmpty(message = "CPF deve ser informado")
+    @CpfAvailable
+    var cpf: String
 
 
 )

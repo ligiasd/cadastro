@@ -17,6 +17,6 @@ data class CustomerModel (
     var email: String,
 
     @Column(name = "cpf")
-    var cpf: Int
+    var cpf: String
 
 )

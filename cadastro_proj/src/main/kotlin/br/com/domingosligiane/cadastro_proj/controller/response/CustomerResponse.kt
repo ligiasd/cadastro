@@ -8,6 +8,6 @@ class CustomerResponse(
 
     var email: String,
 
-    var cpf: Int
+    var cpf: String
 
 )

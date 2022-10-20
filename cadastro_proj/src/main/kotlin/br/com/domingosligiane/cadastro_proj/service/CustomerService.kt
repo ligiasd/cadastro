@@ -4,7 +4,6 @@ import br.com.domingosligiane.cadastro_proj.model.CustomerModel
 import br.com.domingosligiane.cadastro_proj.repository.CustomerRepository
 import br.com.domingosligiane.cadastro_proj.exception.NotFoundException
 import br.com.domingosligiane.cadastro_proj.enums.Errors
-import br.com.domingosligiane.cadastro_proj.enums.Errors.*
 import org.springframework.stereotype.Service
 
 
@@ -33,14 +32,18 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
-    //fun findById(id: Int): CustomerModel{
-      //  return customerRepository.findById(id).orElseThrow()
+    fun findById(id: Int): CustomerModel{
+        return customerRepository.findById(id).orElseThrow{ NotFoundException( Errors.ML201.message.format(id), Errors.ML201.code)}
 
-            //NotFoundException(Errors.ML001.message.format(id)) }
-    //}
+    }
 
-    fun emailAvailable(email: String): Boolean {
+    fun emailAvailable(email: String?): Boolean {
         return !customerRepository.existsByEmail(email)
+
+    }
+
+    fun cpfAvailable(cpf: String?): Boolean {
+        return !customerRepository.existsByCpf(cpf)
 
     }
 
