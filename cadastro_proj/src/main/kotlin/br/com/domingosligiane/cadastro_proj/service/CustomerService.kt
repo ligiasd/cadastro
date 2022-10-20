@@ -4,6 +4,8 @@ import br.com.domingosligiane.cadastro_proj.model.CustomerModel
 import br.com.domingosligiane.cadastro_proj.repository.CustomerRepository
 import br.com.domingosligiane.cadastro_proj.exception.NotFoundException
 import br.com.domingosligiane.cadastro_proj.enums.Errors
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 
@@ -14,17 +16,8 @@ class CustomerService(
     ) {
     val customers = mutableListOf<CustomerModel>()
 
-    fun getAll(name: String?): List<CustomerModel>{
-        try {
-            name?.let {
-                return customerRepository.findByNameContaining(name)
-            }
-            return customerRepository.findAll().toMutableList()
-        }
-        catch (e: Exception)
-        {
-            throw e
-        }
+    fun getAll(pageable: Pageable): Page<CustomerModel>{
+            return customerRepository.findAll(pageable)
 
     }
 
@@ -32,9 +25,12 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
-    fun findById(id: Int): CustomerModel{
-        return customerRepository.findById(id).orElseThrow{ NotFoundException( Errors.ML201.message.format(id), Errors.ML201.code)}
+    fun findById(id: Int): CustomerModel {
+        return customerRepository.findById(id).orElseThrow{ NotFoundException("Customer [${id}] not exists", "ML-0002") }
+    }
 
+    fun findAll(pageable: Pageable): Page<CustomerModel> {
+        return customerRepository.findAll(pageable)
     }
 
     fun emailAvailable(email: String?): Boolean {
