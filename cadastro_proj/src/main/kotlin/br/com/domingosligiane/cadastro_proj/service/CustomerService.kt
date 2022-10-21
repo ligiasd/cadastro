@@ -1,9 +1,9 @@
 package br.com.domingosligiane.cadastro_proj.service
 
+import br.com.domingosligiane.cadastro_proj.controller.response.CustomerResponseFilter
 import br.com.domingosligiane.cadastro_proj.model.CustomerModel
 import br.com.domingosligiane.cadastro_proj.repository.CustomerRepository
 import br.com.domingosligiane.cadastro_proj.exception.NotFoundException
-import br.com.domingosligiane.cadastro_proj.enums.Errors
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -33,6 +33,7 @@ class CustomerService(
         return customerRepository.findAll(pageable)
     }
 
+
     fun emailAvailable(email: String?): Boolean {
         return !customerRepository.existsByEmail(email)
 
@@ -41,6 +42,15 @@ class CustomerService(
     fun cpfAvailable(cpf: String?): Boolean {
         return !customerRepository.existsByCpf(cpf)
 
+    }
+
+    fun searchCustomer(term: String?, pageable: Pageable): Page<CustomerResponseFilter> {
+        val page = if (term == null){
+            customerRepository.findAll(pageable)
+        } else {
+            customerRepository.findAllByNameContainingIgnoreCase(term,pageable)
+        }
+        return page.map { CustomerResponseFilter(it)}
     }
 
 

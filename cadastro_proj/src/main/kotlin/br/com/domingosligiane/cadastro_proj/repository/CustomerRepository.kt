@@ -10,5 +10,6 @@ interface CustomerRepository: CrudRepository<CustomerModel, Int> {
     fun existsByEmail(email: String?): Boolean
     fun existsByCpf(cpf: String?): Boolean
     fun findAll(pageable: Pageable): Page<CustomerModel>
+    fun findAllByNameContainingIgnoreCase(term: String, pageable: Pageable): Page<CustomerModel>
 
 }
