@@ -48,6 +48,7 @@ class CustomerControllerTest {
             .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isCreated)
 
+
         val customers = customerRepository.findAll().toList()
         assertEquals(1, customers.size)
         assertEquals(request.name, customers[0].name)

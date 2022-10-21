@@ -47,7 +47,7 @@ class CustomerController(
         @RequestParam(value = "size", required = false) size: Int,
         @RequestParam(value = "sort", required = false) sort: String,
         @RequestParam(value = "direction", required = false) direction: String
-        ): Page<CustomerResponseFilter> = customerService.searchCustomer(term, PageRequest.of(page,size, Sort.by(Sort.Direction.valueOf(direction))))
+        ): Page<CustomerResponseFilter> = customerService.searchCustomer(term, PageRequest.of(page,size, Sort.Direction.valueOf(direction), sort))
 
 
 
