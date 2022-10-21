@@ -2,7 +2,7 @@
 
 Desafio proposto para desenvolver uma API Rest com Spring Kotlin com rescursos:
 - POST para inclusão de histórico cadastral;
-- GET para concluta de históricos e filtros;
+- GET para consulta de históricos e filtros;
 
 Recursos apresentados:  
 
